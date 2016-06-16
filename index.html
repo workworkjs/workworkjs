@@ -18,31 +18,53 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script>
-	for (var i = 0; i < 100; i++) {
-		for (var j = 0; j < 100; j++) {
-			$('body').append('<span id=' + i + '_' + j + '>' + 0 + '</span>');
-		}
+	// for (var i = 0; i < 100; i++) {
+	// 	for (var j = 0; j < 100; j++) {
+	// 		$('body').append('<span id=' + i + '_' + j + '>' + 0 + '</span>');
+	// 	}
+	// }
+	// function change(i, j) {
+	// 	setTimeout(function () {
+	// 		document.getElementById(i + '_' + j).innerHTML = 1;
+	// 	}, 50)
+	// }
+	// setTimeout(function () {
+	// 	var i, j;
+	// 	for (i = 0; i < 100; i++) {
+	// 		for (j = 0; j < 100; j++) {
+	// 			change(i, j);
+	// 		}
+	// 	}
+	// }, 1000);
+	function fibonacciNoCache(num) {
+		if (num <= 1) return num;
+		return fibonacciNoCache(num - 1) + fibonacciNoCache(num - 2);
 	}
 
-	function change(i, j) {
-		setTimeout(function () {
-			document.getElementById(i + '_' + j).innerHTML = 1;
-		}, 50)
-	}
-	setTimeout(function () {
-		for (var i = 0; i < 100; i++) {
-			for (var j = 0; j < 100; j++) {
-				change(i, j);
-			}
-		}
-	}, 1000);
+  var arr = [];
+  var totalTimeLinear = 0;
+  for (var i = 0; i < 10; i++) {
+  	arr.push(40);
+  }
+  var start = new Date();
+  arr.forEach(num => {
+  	console.log("Fib(", num, ")=", fibonacciNoCache(num));
+  })
 
-	setTimeout(function () {
+  console.log("Total Time Linear:", new Date() - start);
 
-	}, 1000);
-	
-	
-	
+	var numRun = 0;
+	start = new Date();
+  arr.forEach((num, i) => {
+	  var worker = new Worker('js/worker.js');
+		worker.postMessage(num);
+	 	worker.addEventListener('message', function() {
+	 		numRun++;
+	 		if (numRun == arr.length) {
+	 			console.log("Total Time w/ workers:", new Date() - start);
+	 		}
+	 	}, false);
+  })
 
 </script>
 </body>
