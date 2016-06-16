@@ -36,36 +36,68 @@
 	// 		}
 	// 	}
 	// }, 1000);
-	function fibonacciNoCache(num) {
-		if (num <= 1) return num;
-		return fibonacciNoCache(num - 1) + fibonacciNoCache(num - 2);
+
+
+function isPrime (num) {
+	var current = 2;
+	while (current < num) {
+		if (num < 2) {
+			return false;
+		}
+		if (current > Math.sqrt(num)) {
+			return true;
+		}
+		if (num % current === 0) {
+			return false;
+		}
+		current += 1;
+	}
+	return true;
+}
+
+function nthPrime (n) {
+	var primes = [2,3,5];
+	var current = 5;
+
+	while (primes.length < n) {
+		current += 2;
+		if (isPrime(current)) primes.push(current);
+
+		if (primes.length === n) break;
+		current += 4;
+		if (isPrime(current)) primes.push(current);
 	}
 
-  var arr = [];
-  var totalTimeLinear = 0;
-  for (var i = 0; i < 10; i++) {
-  	arr.push(40);
-  }
-  var start = new Date();
-  arr.forEach(num => {
-  	console.log("Fib(", num, ")=", fibonacciNoCache(num));
-  })
+	return primes[n - 1];
+}
 
-  console.log("Total Time Linear:", new Date() - start);
 
-	var numRun = 0;
-	start = new Date();
-  arr.forEach((num, i) => {
-	  var worker = new Worker('js/worker.js');
-		worker.postMessage(num);
-	 	worker.addEventListener('message', function() {
-	 		numRun++;
-	 		if (numRun == arr.length) {
-	 			console.log("Total Time w/ workers:", new Date() - start);
-	 		}
-	 	}, false);
-  })
+var arr = [];
+var totalTimeLinear = 0;
 
+for (var i = 0; i < 10; i++) {
+	arr.push(10000);
+}
+
+var start = new Date();
+
+arr.forEach(function(num) {
+	console.log("primes(", num, ")=", nthPrime(num));
+})
+
+console.log("Total Time Linear:", new Date() - start);
+
+var numRun = 0;
+start = new Date();
+arr.forEach((num, i) => {
+var worker = new Worker('js/worker.js');
+worker.postMessage(num);
+worker.addEventListener('message', function() {
+	numRun++;
+	if (numRun == arr.length) {
+		console.log("Total Time w/ workers:", new Date() - start);
+	}
+}, false);
 </script>
 </body>
 </html>
