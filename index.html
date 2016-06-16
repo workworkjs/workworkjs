@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hi
+		</title>
+		<style>
+			span {
+				display: inline-block;
+				
+				
+			}
+		</style>
+	</head>
+
+<body>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+	for (var i = 0; i < 100; i++) {
+		for (var j = 0; j < 100; j++) {
+			$('body').append('<span id=' + i + '_' + j + '>' + 0 + '</span>');
+		}
+	}
+
+	function change(i, j) {
+		setTimeout(function () {
+			document.getElementById(i + '_' + j).innerHTML = 1;
+		}, 50)
+	}
+	setTimeout(function () {
+		for (var i = 0; i < 100; i++) {
+			for (var j = 0; j < 100; j++) {
+				change(i, j);
+			}
+		}
+	}, 1000);
+
+	setTimeout(function () {
+
+	}, 1000);
+	
+	
+	
+
+</script>
+</body>
+</html>
