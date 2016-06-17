@@ -5,7 +5,9 @@
 		</title>
 		<style>
 			span {
+				font-size: 1em;
 				display: inline-block;
+				padding: 10px;
 				
 				
 			}
@@ -13,16 +15,33 @@
 	</head>
 
 <body>
+<div class="top">
+	<span id="1_0">200000</span>
+	<span id="1_1">200000</span>
+	<span id="1_2">200000</span>
+	<span id="1_3">200000</span>
+	<span id="1_4">200000</span>
+</div>
 
+<div class="bottom">
+	<span id="2_0">200000</span>
+	<span id="2_1">200000</span>
+	<span id="2_2">200000</span>
+	<span id="2_3">200000</span>
+	<span id="2_4">200000</span>
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script>
-	// for (var i = 0; i < 100; i++) {
-	// 	for (var j = 0; j < 100; j++) {
-	// 		$('body').append('<span id=' + i + '_' + j + '>' + 0 + '</span>');
-	// 	}
+
+var testNum = 300000;
+
+	// for (var i = 0; i < 10; i++) {
+	// 	$('div.top').append('<span id=' + 1 + '_' + i + '>' + testNum + '</span>');
+	// 	$('div.bottom').append('<span id=' + 2 + '_' + i + '>' + testNum + '</span');
 	// }
+
 	// function change(i, j) {
 	// 	setTimeout(function () {
 	// 		document.getElementById(i + '_' + j).innerHTML = 1;
@@ -37,25 +56,23 @@
 	// 	}
 	// }, 1000);
 
-
-function isPrime (num) {
-	var current = 2;
-	while (current < num) {
-		if (num < 2) {
-			return false;
-		}
-		if (current > Math.sqrt(num)) {
-			return true;
-		}
-		if (num % current === 0) {
-			return false;
-		}
-		current += 1;
-	}
-	return true;
-}
-
 function nthPrime (n) {
+	function isPrime (num) {
+		var current = 2;
+		while (current < num) {
+			if (num < 2) {
+				return false;
+			}
+			if (current > Math.sqrt(num)) {
+				return true;
+			}
+			if (num % current === 0) {
+				return false;
+			}
+			current += 1;
+		}
+		return true;
+	}
 	var primes = [2,3,5];
 	var current = 5;
 
@@ -71,49 +88,103 @@ function nthPrime (n) {
 	return primes[n - 1];
 }
 
-
 var arr = [];
 var totalTimeLinear = 0;
 
-for (var i = 0; i < 10; i++) {
-	arr.push(5000);
+for (var i = 0; i < 5; i++) {
+	arr.push(testNum + i);
 }
 
 var start = new Date();
 
-arr.forEach(function(num) {
-	console.log("primes(", num, ")=", nthPrime(num));
-})
+// for (var i = 0; i < 5; i++) {
+// 	var result = nthPrime(arr[i]);
+// 	console.log("primes(", arr[i], ")=", result);
+// 	console.log('done', i);
+// 	console.log(document.getElementById('1_' + i));
+// 	document.getElementById('1_' + i).innerHTML = result;
+// }
+
+var result = nthPrime(arr[0]);
+console.log("primes(", arr[0], ")=", result);
+console.log('done', 0);
+console.log(document.getElementById('1_' + 0));
+document.getElementById('1_' + 0).innerHTML = result;
+
+var result = nthPrime(arr[1]);
+console.log("primes(", arr[1], ")=", result);
+console.log('done', 1);
+console.log(document.getElementById('1_' + 1));
+document.getElementById('1_' + 1).innerHTML = result;
+
+// arr.forEach(function(num, i) {
+// 	var result = nthPrime(num);
+// 	console.log("primes(", num, ")=", result);
+// 	document.getElementById('1_' + i).innerHTML = result;
+// })
 
 console.log("Total Time Linear:", new Date() - start);
 
 function WorkWork() {
 }
+
+function setupWorker() {
+	var blob = new Blob([
+	    `self.addEventListener('message', function(e) {
+    		var obj = JSON.parse(e.data);
+    		var parts = obj.fn.match(/function\\s*\\w*\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
+    		var parameters = parts[1].split(/,\\s*/);
+  			obj.fn = new Function(...parameters.concat(parts[2]));
+    		var result = obj.fn(obj.num);
+    		console.log(result); 
+    		self.postMessage(JSON.stringify({result: result, index: obj.index})); 
+    		self.close(); 
+    	}, false); `]);
+
+	// Obtain a blob URL reference to our worker 'file'.
+	var blobURL = window.URL.createObjectURL(blob);
+	var worker = new Worker(blobURL);
+	return worker;
+}
+
+WorkWork.map_Danger = function(arr, fn) {
+	var numRun = 0, waiting = true;
+	start = new Date();
+	var newArr = [];
+
+	for (var i = 0; i < arr.length; i++) {
+		var num = arr[i];
+		var worker = setupWorker();
+		var obj = JSON.stringify({num: num, index: i, fn: fn.toString()});
+		worker.postMessage(obj);
+		worker.addEventListener('message', function(e) {
+			numRun++;
+			var obj = JSON.parse(e.data);
+			console.log("result:", obj);
+			arr[obj.index] = obj.result;
+			document.getElementById('2_' + obj.index).innerHTML = obj.result;
+			if (numRun == arr.length) {
+				console.log("Total Time w/ workers:", new Date() - start);
+				
+				// event emitter (emit the result)
+				waiting = false;
+			}
+
+			
+		}, false);
+	};
+	// event listener
+	// console.log(newArr)
+	// return newArr;
+};
+
+
 WorkWork.forEach = function(arr, fn) {
 	var numRun = 0;
 	start = new Date();
 	arr.forEach((num, i) => {
-		var blob = new Blob([
-		    `self.addEventListener('message', function(e) {
-
-	    		var obj = JSON.parse(e.data);
-	    		console.log("fnString", obj.fn);
-	    		var parts = obj.fn.match(/function\\s*\\w*\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
-	  			console.log(parts)
-	  			// obj.fn = new Function(parts[])
-
-		    	console.log(obj)
-	    		var result = obj.fn(obj.num);
-	    		console.log(result); 
-	    		self.postMessage(result); 
-	    		self.close(); 
-	    	}, false); `]);
-
-		// Obtain a blob URL reference to our worker 'file'.
-		var blobURL = window.URL.createObjectURL(blob);
-		var worker = new Worker(blobURL);
+		var worker = setupWorker();
 		var obj = JSON.stringify({num: num, fn: fn.toString()});
-		console.log(obj)
 		worker.postMessage(obj);
 		worker.addEventListener('message', function() {
 			numRun++;
@@ -122,10 +193,10 @@ WorkWork.forEach = function(arr, fn) {
 			}
 		}, false);
 	});
-	
 };
 
-WorkWork.forEach(arr, nthPrime);
+// WorkWork.forEach(arr, nthPrime);
+WorkWork.map_Danger(arr, nthPrime);
 </script>
 </body>
 </html>
