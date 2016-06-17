@@ -76,7 +76,7 @@ var arr = [];
 var totalTimeLinear = 0;
 
 for (var i = 0; i < 10; i++) {
-	arr.push(10000);
+	arr.push(5000);
 }
 
 var start = new Date();
@@ -87,17 +87,45 @@ arr.forEach(function(num) {
 
 console.log("Total Time Linear:", new Date() - start);
 
-var numRun = 0;
-start = new Date();
-arr.forEach((num, i) => {
-var worker = new Worker('js/worker.js');
-worker.postMessage(num);
-worker.addEventListener('message', function() {
-	numRun++;
-	if (numRun == arr.length) {
-		console.log("Total Time w/ workers:", new Date() - start);
-	}
-}, false);
+function WorkWork() {
+}
+WorkWork.forEach = function(arr, fn) {
+	var numRun = 0;
+	start = new Date();
+	arr.forEach((num, i) => {
+		var blob = new Blob([
+		    `self.addEventListener('message', function(e) {
+
+	    		var obj = JSON.parse(e.data);
+	    		console.log("fnString", obj.fn);
+	    		var parts = obj.fn.match(/function\\s*\\w*\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
+	  			console.log(parts)
+	  			// obj.fn = new Function(parts[])
+
+		    	console.log(obj)
+	    		var result = obj.fn(obj.num);
+	    		console.log(result); 
+	    		self.postMessage(result); 
+	    		self.close(); 
+	    	}, false); `]);
+
+		// Obtain a blob URL reference to our worker 'file'.
+		var blobURL = window.URL.createObjectURL(blob);
+		var worker = new Worker(blobURL);
+		var obj = JSON.stringify({num: num, fn: fn.toString()});
+		console.log(obj)
+		worker.postMessage(obj);
+		worker.addEventListener('message', function() {
+			numRun++;
+			if (numRun == arr.length) {
+				console.log("Total Time w/ workers:", new Date() - start);
+			}
+		}, false);
+	});
+	
+};
+
+WorkWork.forEach(arr, nthPrime);
 </script>
 </body>
 </html>
