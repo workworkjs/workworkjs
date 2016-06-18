@@ -6,16 +6,14 @@ A library that speeds up computation-heavy tasks in JavaScript with multi-thread
 # Usage 
 
 ```
-
 var arr = [64, 70, 80];
 
 WorkWork.map(arr, function (elem) {
-  return fibonacci(elem);
+    return fibonacci(elem);
 })
 .then(function (resultArr) {
-  console.log(resultArr);
+    console.log(resultArr);
 })
-
 
 ```
 
@@ -28,10 +26,10 @@ This is slower than if you just used ``` Array.prototype.map ```
 var arr = [1, 2, 3];
 
 WorkWork.map(arr, function (elem) {
-  return elem + 1;
+    return elem + 1;
 })
 .then(function (resultArr) {
-  console.log(resultArr);
+    console.log(resultArr);
 })
 
 ```
