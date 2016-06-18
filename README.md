@@ -15,6 +15,8 @@ WorkWork.map(arr, function (elem) {
     console.log(resultArr);
 })
 
+// logs the 64th, the 70th, and the 80th fibonacci numbers
+
 ```
 
 # Installing it
@@ -66,7 +68,7 @@ WorkWork.map(arr, nthPrime)
     console.log(resultArr);
 });
 
-// logs a new array with the 50,000th prime, the 56456th prime, and the 125694th prime
+// logs a new array with the 50,000th, the 56456th, and the 125694th prime numbers
 ```
 
 ### WorkWork.filter(arr, fn)
