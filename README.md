@@ -49,11 +49,18 @@ WorkWork.map(arr, function (elem) {
 
 ```
 
-#Methods
+# Methods
 
-### WorkWork.map
+### WorkWork.map(arr, fn)
 
-### WorkWork.filter
+Takes in an array as the first argument, and a function as the second that returns a modified elem. 
+Works just like the native Array.prototype.map except WorkWork.map returns a promise that must be resolved. 
+
+### WorkWork.filter(arr, fn)
+
+Takes in an array as the first argument, and a function as the second that returns a true or false. 
+Works just like the native Array.prototype.filter except WorkWork.filter returns a promise that must be resolved. 
 
 
+# Notes
 Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
