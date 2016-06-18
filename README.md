@@ -114,6 +114,9 @@ WorkWork.filter(arr, isPrime)
 
 # Notes
 Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
+
 More about Web Workers: http://ejohn.org/blog/web-workers/
+
 More about Blobs and inline Workers: http://www.html5rocks.com/en/tutorials/workers/basics/#toc-inlineworkers
+
 Intel's Efforts in River Trail: https://software.intel.com/en-us/articles/river-trail-bringing-parallel-javascript-to-the-web
