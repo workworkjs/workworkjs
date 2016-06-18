@@ -5,6 +5,7 @@ A library that speeds up computation-heavy tasks in JavaScript with multi-thread
 
 # Using it 
 
+*Example*
 ```js
 var arr = [64, 70, 80];
 
@@ -30,9 +31,7 @@ Just put it into your script tag like so:
 <script src="workwork.js"></script> 
 ```
 
-*OR*
-
-Run 
+*OR* Run 
 ``` 
 npm install workworkjs --save 
 ``` 
