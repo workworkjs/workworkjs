@@ -26,11 +26,11 @@ Just put it into your script tag like so:
 
 ``` <script src="workwork.js"></script> ```
 
-- OR - 
+OR 
 
 Run 
 ``` npm install workworkjs --save ``` 
-and configure your static routing 
+and configure your static routing to correctly look into the node_modules folder. 
 
 # Applications
 
@@ -49,6 +49,11 @@ WorkWork.map(arr, function (elem) {
 
 ```
 
+#Methods
+
+### WorkWork.map
+
+### WorkWork.filter
 
 
 Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
