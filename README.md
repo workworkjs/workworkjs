@@ -5,7 +5,7 @@ A library that speeds up computation-heavy tasks in JavaScript with multi-thread
 
 # Using it 
 
-```
+```js
 var arr = [64, 70, 80];
 
 WorkWork.map(arr, function (elem) {
@@ -40,8 +40,9 @@ and configure your static routing to correctly look into the node_modules folder
 
 WorkWork is best suited for situations where heavy blocking computation would otherwise be necessary. It is not intended to replace the original Array.prototype ```map``` and ```filter``` but rather to supplement them when heavy computation should be performed on a separate thread. 
 
-This is slower than if you just used ``` Array.prototype.map ```
-``` 
+This is slower than if you just used ```js Array.prototype.map ```
+
+```js
 var arr = [1, 2, 3];
 
 WorkWork.map(arr, function (elem) {
@@ -61,7 +62,7 @@ Takes in an array as the first argument, and a function as the second that retur
 Works just like the native Array.prototype.map except WorkWork.map returns a promise that must be resolved. 
 
 *Example*
-```
+```js
 var arr = [50000, 56456, 125694];
 
 WorkWork.map(arr, nthPrime)
@@ -78,7 +79,7 @@ Takes in an array as the first argument, and a function as the second that retur
 Works just like the native Array.prototype.filter except WorkWork.filter returns a promise that must be resolved. 
 
 *Example* 
-```
+```js
 var arr = [50000, 56456, 125694];
 
 WorkWork.map(arr, nthPrime)
@@ -97,7 +98,7 @@ WorkWork.map(arr, nthPrime)
 Can also be used in isolation
 
 *Example* 
-```
+```js
 var arr = [50000, 56456, 125694];
 
 WorkWork.filter(arr, isPrime)
