@@ -29,7 +29,9 @@ Just put it into your script tag like so:
 OR 
 
 Run 
-``` npm install workworkjs --save ``` 
+``` 
+npm install workworkjs --save 
+``` 
 and configure your static routing to correctly look into the node_modules folder. 
 
 # When should I use this?
@@ -71,7 +73,6 @@ WorkWork.map(arr, nthPrime)
 
 Takes in an array as the first argument, and a function as the second that returns a true or false. 
 Works just like the native Array.prototype.filter except WorkWork.filter returns a promise that must be resolved. 
-
 
 # Notes
 Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
