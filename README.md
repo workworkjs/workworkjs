@@ -3,7 +3,7 @@ WorkWorkJS
 
 A library that speeds up computation-heavy tasks in JavaScript with multi-threading and Web Workers.
 
-# Usage 
+# Using it 
 
 ```
 var arr = [64, 70, 80];
@@ -16,6 +16,21 @@ WorkWork.map(arr, function (elem) {
 })
 
 ```
+
+# Installing it
+
+You can get the raw js file here: 
+Or if you like it squashed (minified): 
+
+Just put it into your script tag like so:
+
+``` <script src="workwork.js"></script> ```
+
+- OR - 
+
+Run 
+``` npm install workworkjs --save ``` 
+and configure your static routing 
 
 # Applications
 
