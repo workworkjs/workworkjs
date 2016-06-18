@@ -32,7 +32,7 @@ Run
 ``` npm install workworkjs --save ``` 
 and configure your static routing to correctly look into the node_modules folder. 
 
-# Applications
+# When should I use this?
 
 WorkWork is best suited for situations where heavy blocking computation would otherwise be necessary. It is not intended to replace the original Array.prototype ```map``` and ```filter``` but rather to supplement them when heavy computation should be performed on a separate thread. 
 
