@@ -56,6 +56,17 @@ WorkWork.map(arr, function (elem) {
 Takes in an array as the first argument, and a function as the second that returns a modified elem. 
 Works just like the native Array.prototype.map except WorkWork.map returns a promise that must be resolved. 
 
+```
+var arr = [50000, 56456, 125694];
+
+WorkWork.map(arr, nthPrime)
+.then(function (resultArr) {
+    console.log(resultArr);
+});
+
+// logs a new array with the 50,000th prime, the 56456th prime, and the 125694th prime
+```
+
 ### WorkWork.filter(arr, fn)
 
 Takes in an array as the first argument, and a function as the second that returns a true or false. 
