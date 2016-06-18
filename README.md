@@ -22,8 +22,7 @@ WorkWork.map(arr, function (elem) {
 
 # Installing it
 
-You can get the raw js file here: 
-Or if you like it squashed (minified): 
+You can get the raw js file here: https://raw.githubusercontent.com/workworkjs/workworkjs/workwork/workwork.js
 
 Just put it into your script tag like so:
 
