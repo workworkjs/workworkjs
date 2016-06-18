@@ -26,7 +26,9 @@ Or if you like it squashed (minified):
 
 Just put it into your script tag like so:
 
-``` <script src="workwork.js"></script> ```
+```html
+<script src="workwork.js"></script> 
+```
 
 OR 
 
