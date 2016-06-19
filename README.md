@@ -30,7 +30,7 @@ Just put it into your script tag like so:
 <script src="workwork.js"></script> 
 ```
 
-*OR* Run 
+*OR* run 
 ``` 
 npm install workworkjs --save 
 ``` 
