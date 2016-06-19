@@ -5,9 +5,9 @@
 		});
 	};
 
-
 	function WorkWork () {
-
+		var messages = ['Whaaat?', 'Me busy. Leave me alone!!', 'No time for play.', 'Me not that kind of orc!'];
+		this.value = messages[Math.floor(Math.random() * messages.length)];
 	}
 
 	function setupWorker() {
@@ -17,9 +17,8 @@
 	    		var parts = obj.fn.match(/function\\s*\\w*\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
 	    		var parameters = parts[1].split(/,\\s*/);
 	  			obj.fn = new Function(...parameters.concat(parts[2]));
-	    		var result = obj.fn(obj.num);
-	    		console.log(result); 
-	    		self.postMessage(JSON.stringify({result: result, index: obj.index})); 
+	    		var result = obj.fn(obj.elem);
+	    		self.postMessage(JSON.stringify({result: result, index: obj.index, elem: obj.elem})); 
 	    		self.close(); 
 	    	}, false); `]);
 
@@ -40,6 +39,7 @@
 				numRun++;
 				if (numRun == arr.length) {
 					console.log("Total Time w/ workers:", new Date() - start);
+
 				}
 			}, false);
 		});
@@ -60,7 +60,7 @@
 					worker.addEventListener('message', function(e) {
 						numRun++;
 						var obj = JSON.parse(e.data);
-						// console.log("result:", obj);
+						console.log("result:", obj);
 						newArr[obj.index] = obj.result;
 						// document.getElementById('2_' + obj.index).innerHTML = obj.result;
 						if (numRun == arr.length) {
@@ -93,7 +93,7 @@
 						numRun += 1;
 						var obj = JSON.parse(e.data);
 						if (obj.result) {
-							newArr[obj.index] = elem;
+							newArr[obj.index] = obj.elem;
 						}
 						if (numRun === arr.length) {
 							console.log('Total Time w/ workers:', new Date() - start);
@@ -106,7 +106,6 @@
 				reject(err);
 			}
 		});
-	}
-	console.log(WorkWork);
+	};
 	window.WorkWork = WorkWork;
 })(window);

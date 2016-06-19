@@ -1,0 +1,16 @@
+.array {
+	text-align: center;
+	font-size: 3em;
+}
+
+.array .arr_elem:after {
+	content: ",";
+}
+
+.peon img {
+	width: 100%;
+}
+
+.dash button {
+	display: block;
+}

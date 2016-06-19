@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo | Primes</title>
+	<link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+	<h1>Web Workers Demo</h1>
+	<hr>
+	<h3>Finding the nthPrime</h3>
+		<div class="top">
+			<span id="1_0">200000</span>
+			<span id="1_1">200000</span>
+			<span id="1_2">200000</span>
+			<span id="1_3">200000</span>
+			<span id="1_4">200000</span>
+		</div>
+
+		<div class="bottom">
+			<span id="2_0">200000</span>
+			<span id="2_1">200000</span>
+			<span id="2_2">200000</span>
+			<span id="2_3">200000</span>
+			<span id="2_4">200000</span>
+		</div>
+	</div>
+
+
+<script src="/js/workwork.js"></script>
+<script src="/js/parallel.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+
+var testNum = 200000;
+
+	// for (var i = 0; i < 10; i++) {
+	// 	$('div.top').append('<span id=' + 1 + '_' + i + '>' + testNum + '</span>');
+	// 	$('div.bottom').append('<span id=' + 2 + '_' + i + '>' + testNum + '</span');
+	// }
+
+function nthPrime (n) {
+	function isPrime (num) {
+		var current = 2;
+		while (current < num) {
+			if (num < 2) {
+				return false;
+			}
+			if (current > Math.sqrt(num)) {
+				return true;
+			}
+			if (num % current === 0) {
+				return false;
+			}
+			current += 1;
+		}
+		return true;
+	}
+	var primes = [2,3,5];
+	var current = 5;
+
+	while (primes.length < n) {
+		current += 2;
+		if (isPrime(current)) primes.push(current);
+
+		if (primes.length === n) break;
+		current += 4;
+		if (isPrime(current)) primes.push(current);
+	}
+
+	return primes[n - 1];
+}
+
+var arr = [];
+var totalTimeLinear = 0;
+
+for (var i = 0; i < 5; i++) {
+	arr.push(testNum + i);
+}
+
+// var start = new Date();
+
+// arr.forEach(function(num, i) {
+// 	var result = nthPrime(num);
+// 	console.log("primes(", num, ")=", result);	
+// 	document.getElementById('1_' + i).innerHTML = result;
+// });
+
+// console.log("Total Time Linear:", new Date() - start);
+
+
+// // WorkWork.forEach(arr, nthPrime);
+// WorkWork.map(arr, nthPrime)
+// .then(resultArr => {
+// 	console.log("Result Arr",resultArr);
+// })
+
+
+var start = new Date();
+var p = new Parallel(arr);
+p.map(nthPrime).then(result => {
+	console.log("Parallel.js time:", new Date() - start);
+});
+
+
+</script>
+</body>
+</html>
