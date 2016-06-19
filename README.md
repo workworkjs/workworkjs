@@ -113,7 +113,7 @@ WorkWork.filter(arr, isPrime)
 ```
 
 # Notes
-Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
+Our name: https://www.youtube.com/watch?v=2ccZBlLJQ24
 ******
 
 More about Web Workers: http://ejohn.org/blog/web-workers/
