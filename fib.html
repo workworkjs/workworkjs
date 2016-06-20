@@ -107,9 +107,20 @@
 
 <script>
 function nthFib(num) {
-		if (num <= 1) return num;
-		return nthFib(num - 1) + nthFib(num - 2);
+	if (num <= 1) return num;
+	// return nthFib(num - 1) + nthFib(num - 2);
+	var t2 = 1;
+	var t1 = 1;
+	var n = 2;
+	while (n < num) {
+		t3 = t2 + t1;
+		t1 = t2;
+		t2 = t3;
+		n += 1;
+	}
+	return t2;
 }
+
 
 var domArray = $('.rand'),
 		usageArray = [],
@@ -135,7 +146,7 @@ function softreset() {
 $('#reset').on('click', function () {
 	usageArray = [];
 	$.each(domArray, function (i, val) {
-		var randomNum = Math.floor(Math.random() * (20)) + 35;
+		var randomNum = Math.floor(Math.random() * (20)) + 30;
 		this.innerText = randomNum;
 		usageArray.push(randomNum);
 	});
