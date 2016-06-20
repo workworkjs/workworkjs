@@ -27,7 +27,7 @@ WorkWork.map(arr, function (elem) {
 
 # Installing it
 
-You can get the raw js file here: https://raw.githubusercontent.com/workworkjs/workworkjs/workwork/workwork.js
+You can get the raw js file here: https://raw.githubusercontent.com/workworkjs/workworkjs/master/workwork.js
 
 *OR* run 
 ``` 
