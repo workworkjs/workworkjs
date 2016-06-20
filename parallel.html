@@ -204,9 +204,9 @@ $('#native').on('click', function () {
 $('#parallel').on('click', function () {
 	music.play();
 	window.dispatchEvent(event1);
-	
+	var newArr = usageArray.slice();
 	var startTime = new Date();
-	var p = new Parallel(usageArray);
+	var p = new Parallel(newArr);
 	p.map(nthPrime)
 	.then(function (resultArr) {
 		var netTime = new Date() - startTime;
