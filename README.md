@@ -3,6 +3,11 @@ WorkWorkJS
 
 A library that speeds up computation-heavy tasks in JavaScript with multi-threading and Web Workers.
 
+# Demo 
+
+https://workworkjs.github.io/workworkjs
+
+
 # Using it 
 
 *Example*
