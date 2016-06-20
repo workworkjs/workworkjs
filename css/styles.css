@@ -9,8 +9,21 @@
 
 .peon img {
 	width: 100%;
+	opacity: 0;
+}
+
+.greyed {
+	opacity: 0.7;
+}
+
+h3 a {
+	color: grey;
+}
+
+h3 a:hover {
+	text-decoration: none;
 }
 
 .dash button {
-	display: block;
+	display: inline-block;
 }

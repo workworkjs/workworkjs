@@ -14,10 +14,13 @@
 		var blob = new Blob([
 		    `self.addEventListener('message', function(e) {
 	    		var obj = JSON.parse(e.data);
-	    		var parts = obj.fn.match(/function\\s*\\w*\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
-	    		var parameters = parts[1].split(/,\\s*/);
-	  			obj.fn = new Function(...parameters.concat(parts[2]));
-	    		var result = obj.fn(obj.elem);
+	    		var parts = obj.fn.match(/function\\s*\(\\w*\)\\s*\\(([\\w\\s,]*)\\)\\s*\{([\\s\\S]*)\}/);
+	    		var nameofFunc = parts[1];
+	    		var parameters = parts[2].split(/,\\s*/);
+	    		var funcContent = parts[3].split(nameofFunc).join('newFunc');
+	  			newFunc = new Function(...parameters.concat(funcContent));
+	    		var result = newFunc(obj.elem);
+	    		console.log(result, obj.index);
 	    		self.postMessage(JSON.stringify({result: result, index: obj.index, elem: obj.elem})); 
 	    		self.close(); 
 	    	}, false); `]);
@@ -62,7 +65,6 @@
 						var obj = JSON.parse(e.data);
 						console.log("result:", obj);
 						newArr[obj.index] = obj.result;
-						// document.getElementById('2_' + obj.index).innerHTML = obj.result;
 						if (numRun == arr.length) {
 							console.log("Total Time w/ workers:", new Date() - start);
 							resolve(newArr);
@@ -96,7 +98,7 @@
 							newArr[obj.index] = obj.elem;
 						}
 						if (numRun === arr.length) {
-							console.log('Total Time w/ workers:', new Date() - start);
+							// console.log('Total Time w/ workers:', new Date() - start);
 							resolve(newArr.clean());
 						}
 					})

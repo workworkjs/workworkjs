@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo | WorkWork vs Parallel</title>
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/prism.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	
+</head>
+
+<body>
+	<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+
+	<div class="container">
+		<h1>WorkWork Demo</h1>
+		<h3><a href="index.html"><span class="greyed">Finding the nthPrime</span></a> | <a href="fib.html"><span class="greyed">Finding the nth Fibonacci Number</span></a> | Vs Parallel.JS</h3>
+		<hr>
+
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<h4>Parallel.prototype.map</h4>
+				<pre class="language-javascript line-numbers" data-start="11"><code>var p = new Parallel([0, 1, 2, 3, 4, 5, 6]);
+
+p.map(nthPrime)
+.then(function (resultArr) {
+	console.log(resultArr);
+});
+
+//logs a new array with nth prime numbers as elements</code></pre>
+			</div>
+
+			<div class="col-lg-6 col-md-12">
+				<h4>WorkWork.map</h4>
+				<pre class="language-javascript line-numbers" data-start="24"><code>WorkWork.map(function (elem, i) {
+	return nthPrime(elem);
+})
+.then(function (resultArr) {
+	console.log(resultArr);
+})
+
+//logs a new array with nth prime numbers as elements</code></pre>
+
+			</div>
+		</div>
+
+		<div class="row m-t-1 m-b-2">
+			<div class="col-lg-12 col-md-12">
+				<hr>
+				<div class="array">
+					<span class="left_bracket">[</span>
+					<span class="arr_elem rand" id="1_0"></span>
+					<span class="arr_elem rand" id="1_1"></span>
+					<span class="arr_elem rand" id="1_2"></span>
+					<span class="arr_elem rand" id="1_3"></span>
+					<span class="rand" id="1_4"></span>
+					<span class="right_bracket">]</span>
+				</div>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-6">
+				<div class="peon">
+					<img src="peon.gif">
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-6 col-lg-offset-1 col-md-offset-1">
+				<div class="scoreboard">
+					<table class="table">
+					   <thead>
+					     <tr>
+					       <th>Method</th>
+					       <th>Time (ms)</th>
+					     </tr>
+					   </thead>
+					   <tbody>
+					     <tr>
+					       <td>Parallel</td>
+					       <td id="native-time"></td>
+					     </tr>
+					     <tr>
+					       <td>WorkWork</td>
+					       <td id="workwork-time"></td>
+					     </tr>
+					   </tbody>
+					 </table>
+				</div>
+
+				<div class="dash">
+					<button type="button" id="reset" class="btn btn-secondary">Reset</button>
+					<button type="button" id="soft-reset" class="btn btn-secondary">Soft Reset</button>
+					<button type="button" id="parallel" class="btn btn-primary-outline">Parallel Start</button>
+					<button type="button" id="workwork" class="btn btn-primary-outline">WorkWork Start</button>
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+
+<audio src="peonna.mp3" loop></audio>
+
+<script src="js/workwork.js"></script>
+<script src="js/parallel.js"></script>
+<script src="js/prism.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<script>
+function nthFib(num) {
+		if (num <= 1) return num;
+		return nthFib(num - 1) + nthFib(num - 2);
+}
+
+function nthPrime (n) {
+	function isPrime (num) {
+		var current = 2;
+		while (current < num) {
+			if (num < 2) {
+				return false;
+			}
+			if (current > Math.sqrt(num)) {
+				return true;
+			}
+			if (num % current === 0) {
+				return false;
+			}
+			current += 1;
+		}
+		return true;
+	}
+	var primes = [2,3,5];
+	var current = 5;
+
+	while (primes.length < n) {
+		current += 2;
+		if (isPrime(current)) primes.push(current);
+
+		if (primes.length === n) break;
+		current += 4;
+		if (isPrime(current)) primes.push(current);
+	}
+
+	return primes[n - 1];
+}
+
+var domArray = $('.rand'),
+		usageArray = [],
+		peon = $('.peon img'),
+		event1 = new Event('startWork'),
+		event2 = new Event('finish'),
+		music = $('audio')[0];
+
+window.addEventListener('startWork', function (e) {
+	peon.css('opacity', 1);
+}, false);
+
+window.addEventListener('finish', function (e) {
+	peon.css('opacity', 0);
+}, false);
+
+function softreset() {
+	$.each(domArray, function (i, val) {
+		this.innerText = usageArray[i];
+	});
+}
+
+$('#reset').on('click', function () {
+	usageArray = [];
+	$.each(domArray, function (i, val) {
+		var randomNum = Math.floor(Math.random() * (200000)) + 15000;
+		this.innerText = randomNum;
+		usageArray.push(randomNum);
+	});
+});
+
+$('#soft-reset').on('click', function () {
+	softreset();
+});
+
+$('#native').on('click', function () {
+	music.play();
+	window.dispatchEvent(event1);
+	setTimeout(function () {
+		var startTime = new Date();
+		var newArr = usageArray.map(function (elem) {
+			return nthPrime(elem);
+		});
+		var netTime = new Date() - startTime;
+		$('#native-time')[0].textContent = netTime;
+		$.each(domArray, function (i, val) {
+			this.innerText = newArr[i];
+		});
+		setTimeout(function () {
+			window.dispatchEvent(event2);
+			music.pause();
+			music.currentTime = 0;
+		}, 500);
+	}, 500);
+});
+
+$('#parallel').on('click', function () {
+	music.play();
+	window.dispatchEvent(event1);
+	
+	var startTime = new Date();
+	var p = new Parallel(usageArray);
+	p.map(nthPrime)
+	.then(function (resultArr) {
+		var netTime = new Date() - startTime;
+		$('#native-time')[0].textContent = netTime;
+		$.each(domArray, function (i, val) {
+			this.innerText = resultArr[i];
+		});
+
+		window.dispatchEvent(event2);
+		music.pause();
+		music.currentTime = 0;
+	})
+});
+
+$('#workwork').on('click', function () {
+	music.play();
+	window.dispatchEvent(event1);
+	
+	var startTime = new Date();
+	WorkWork.map(usageArray, nthPrime)
+	.then(function (resultArr) {
+		var netTime = new Date() - startTime;
+		$('#workwork-time')[0].textContent = netTime;
+		$.each(domArray, function (i, val) {
+			this.innerText = resultArr[i];
+		});
+
+		window.dispatchEvent(event2);
+		music.pause();
+		music.currentTime = 0;
+	})
+});
+</script>
+</body>
+</html>
