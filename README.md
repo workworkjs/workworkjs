@@ -3,6 +3,11 @@ WorkWorkJS
 
 A library that speeds up computation-heavy tasks in JavaScript with multi-threading and Web Workers.
 
+# Demo 
+
+https://workworkjs.github.io/workworkjs
+
+
 # Using it 
 
 *Example*
@@ -22,20 +27,21 @@ WorkWork.map(arr, function (elem) {
 
 # Installing it
 
-You can get the raw js file here: 
-Or if you like it squashed (minified): 
+You can get the raw js file here: https://raw.githubusercontent.com/workworkjs/workworkjs/master/workwork.js
+
+*OR* run 
+``` 
+npm install workworkjs --save 
+``` 
+and configure your static routing to correctly look into the node_modules folder. 
 
 Just put it into your script tag like so:
 
 ```html
 <script src="workwork.js"></script> 
+<!-- or -->
+<script src="node_modules/workworkjs/workwork.js"></script>
 ```
-
-*OR* Run 
-``` 
-npm install workworkjs --save 
-``` 
-and configure your static routing to correctly look into the node_modules folder. 
 
 # When should I use this?
 
@@ -114,4 +120,13 @@ WorkWork.filter(arr, isPrime)
 ```
 
 # Notes
-Our name: https://www.youtube.com/watch?v=bLbhYYmXDhc
+Our name: https://www.youtube.com/watch?v=2ccZBlLJQ24
+******
+
+More about Web Workers: http://ejohn.org/blog/web-workers/
+
+More about Blobs and inline Workers: http://www.html5rocks.com/en/tutorials/workers/basics/#toc-inlineworkers
+
+Intel's Efforts in River Trail: https://software.intel.com/en-us/articles/river-trail-bringing-parallel-javascript-to-the-web
+
+Parallel.js https://adambom.github.io/parallel.js/
