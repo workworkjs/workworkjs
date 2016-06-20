@@ -29,17 +29,17 @@ WorkWork.map(arr, function (elem) {
 
 You can get the raw js file here: https://raw.githubusercontent.com/workworkjs/workworkjs/workwork/workwork.js
 
-Just put it into your script tag like so:
-
-```html
-<script src="workwork.js"></script> 
-```
-
 *OR* run 
 ``` 
 npm install workworkjs --save 
 ``` 
 and configure your static routing to correctly look into the node_modules folder. 
+
+Just put it into your script tag like so:
+
+```html
+<script src="workwork.js"></script> 
+```
 
 # When should I use this?
 
