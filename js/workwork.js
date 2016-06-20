@@ -20,7 +20,6 @@
 	    		var funcContent = parts[3].split(nameofFunc).join('newFunc');
 	  			newFunc = new Function(...parameters.concat(funcContent));
 	    		var result = newFunc(obj.elem);
-	    		console.log(result, obj.index);
 	    		self.postMessage(JSON.stringify({result: result, index: obj.index, elem: obj.elem})); 
 	    		self.close(); 
 	    	}, false); `]);
@@ -41,8 +40,7 @@
 			worker.addEventListener('message', function() {
 				numRun++;
 				if (numRun == arr.length) {
-					console.log("Total Time w/ workers:", new Date() - start);
-
+					// console.log("Total Time w/ workers:", new Date() - start);
 				}
 			}, false);
 		});
@@ -63,10 +61,10 @@
 					worker.addEventListener('message', function(e) {
 						numRun++;
 						var obj = JSON.parse(e.data);
-						console.log("result:", obj);
+						// console.log("result:", obj);
 						newArr[obj.index] = obj.result;
 						if (numRun == arr.length) {
-							console.log("Total Time w/ workers:", new Date() - start);
+							// console.log("Total Time w/ workers:", new Date() - start);
 							resolve(newArr);
 							
 						}
