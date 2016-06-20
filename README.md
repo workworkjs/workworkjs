@@ -39,6 +39,8 @@ Just put it into your script tag like so:
 
 ```html
 <script src="workwork.js"></script> 
+<!-- or -->
+<script src="node_modules/workworkjs/workwork.js"></script>
 ```
 
 # When should I use this?
