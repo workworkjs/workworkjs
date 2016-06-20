@@ -170,7 +170,7 @@ function softreset() {
 $('#reset').on('click', function () {
 	usageArray = [];
 	$.each(domArray, function (i, val) {
-		var randomNum = Math.floor(Math.random() * (300000)) + 200000;
+		var randomNum = Math.floor(Math.random() * (300000)) + 300000;
 		this.innerText = randomNum;
 		usageArray.push(randomNum);
 	});
