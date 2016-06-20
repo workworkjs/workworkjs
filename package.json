@@ -1,0 +1,19 @@
+{
+  "name": "workworkjs",
+  "version": "1.1.0",
+  "description": "A library that speeds up computation-heavy tasks in JavaScript with multi-threading and Web Workers.",
+  "main": "workwork.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/workworkjs/workworkjs.git"
+  },
+  "author": "John Chen and Jonathan Rim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/workworkjs/workworkjs/issues"
+  },
+  "homepage": "https://github.com/workworkjs/workworkjs#readme"
+}
