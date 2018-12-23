@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/workworkjs/workworkjs/issues"
   },
-  "homepage": "https://github.com/workworkjs/workworkjs#readme"
+  "homepage": "https://github.com/workworkjs/workworkjs#readme",
+  "keywords": [
+    "web workers",
+    "javascript",
+    "html",
+    "multithreading"
+   ]
 }
