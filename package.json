@@ -1,6 +1,6 @@
 {
   "name": "workworkjs",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "description": "A library that speeds up computation-heavy tasks in JavaScript with multi-threading and Web Workers.",
   "main": "workwork.js",
   "scripts": {
